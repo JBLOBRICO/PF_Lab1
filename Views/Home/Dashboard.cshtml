@@ -1,77 +1,175 @@
-@model MoodPlaylistGenerator.ViewModels.DashboardViewModel
+﻿@model MoodPlaylistGenerator.ViewModels.DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
 }
 
+<style>
+    body {
+        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Gradient Title */
+    .gradient-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #1db954, #00ff9d);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
+    }
+
+    /* Stat Cards (glass style) */
+    .stat-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        transition: all 0.3s ease;
+        text-align: center;
+        padding: 20px;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 30px rgba(29, 185, 84, 0.5);
+        }
+
+        .stat-card h4 {
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+    /* Mood Cards */
+    .mood-card {
+        border-radius: 18px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border: 2px solid transparent;
+        transition: 0.3s;
+        padding: 15px;
+    }
+
+        .mood-card:hover {
+            transform: scale(1.08);
+            border-color: #1db954;
+            box-shadow: 0 0 25px rgba(29,185,84,0.6);
+        }
+
+        .mood-card h6 {
+            font-weight: bold;
+        }
+
+    /* Section Cards */
+    .section-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(8px);
+    }
+
+        .section-card .card-header {
+            background: transparent;
+            border: none;
+            color: #1db954;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+    /* List items like Spotify queue */
+    .list-group-item {
+        background: transparent;
+        color: #fff;
+        border: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-group-item h6 {
+            color: #fff;
+        }
+
+        .list-group-item small {
+            color: #bbb;
+        }
+
+    /* Buttons */
+    .btn-glow {
+        background: #1db954;
+        border: none;
+        border-radius: 30px;
+        color: #fff;
+        font-weight: 600;
+        padding: 8px 16px;
+        transition: 0.2s;
+    }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(29,185,84,0.8);
+            transform: scale(1.05);
+        }
+</style>
+
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="display-4">Welcome back, @User.Identity!.Name!</h1>
-            <p class="lead">Your Mood Playlist Generator Dashboard</p>
+    <div class="row mb-5 text-center">
+        <div class="col">
+            <h1 class="gradient-title">Welcome back, @User.Identity!.Name!</h1>
+            <p class="lead text-secondary">Your Mood Playlist Generator Dashboard</p>
         </div>
     </div>
 
     <!-- Stats Cards -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary">
-                <div class="card-header">Total Songs</div>
-                <div class="card-body">
-                    <h4 class="card-title">@Model.TotalSongs</h4>
-                    <p class="card-text">Songs in your library</p>
-                </div>
+    <div class="row mb-5 text-center">
+        <div class="col-md-3 mb-3">
+            <div class="stat-card">
+                <i class="bi bi-music-note-beamed fs-1 text-success"></i>
+                <h4>@Model.TotalSongs</h4>
+                <p>Songs</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success">
-                <div class="card-header">Total Playlists</div>
-                <div class="card-body">
-                    <h4 class="card-title">@Model.TotalPlaylists</h4>
-                    <p class="card-text">Generated playlists</p>
-                </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card">
+                <i class="bi bi-list-music fs-1 text-info"></i>
+                <h4>@Model.TotalPlaylists</h4>
+                <p>Playlists</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-info">
-                <div class="card-header">Moods Available</div>
-                <div class="card-body">
-                    <h4 class="card-title">@Model.Moods.Count</h4>
-                    <p class="card-text">Mood categories</p>
-                </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card">
+                <i class="bi bi-emoji-smile fs-1 text-warning"></i>
+                <h4>@Model.Moods.Count</h4>
+                <p>Moods</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-warning">
-                <div class="card-header">Quick Actions</div>
-                <div class="card-body">
-                    <a href="/Songs/Create" class="btn btn-light btn-sm">Add Song</a>
-                    <a href="/Playlists/Generate" class="btn btn-light btn-sm">Generate</a>
-                </div>
+        <div class="col-md-3 mb-3">
+            <div class="stat-card">
+                <i class="bi bi-lightning-charge fs-1 text-danger"></i>
+                <p>Quick Actions</p>
+                <a href="/Songs/Create" class="btn-glow btn-sm me-2">Add Song</a>
+                <a href="/Playlists/Generate" class="btn-glow btn-sm">Generate</a>
             </div>
         </div>
     </div>
 
     <!-- Mood Overview -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Your Moods</h5>
-                </div>
+    <div class="row mb-5">
+        <div class="col">
+            <div class="section-card p-3">
+                <div class="card-header">🎨 Your Moods</div>
                 <div class="card-body">
                     <div class="row">
                         @foreach (var mood in Model.Moods)
                         {
                             var songCount = Model.MoodSongCounts.ContainsKey(mood.Id) ? Model.MoodSongCounts[mood.Id] : 0;
-                            <div class="col-md-2 text-center mb-3">
-                                <div class="card" style="border-color: @mood.Color;">
-                                    <div class="card-body">
-                                        <h6 class="card-title" style="color: @mood.Color;">@mood.Name</h6>
-                                        <p class="card-text">
-                                            <strong>@songCount</strong> songs
-                                        </p>
-                                        <small class="text-muted">@mood.Description</small>
-                                    </div>
+                            <div class="col-md-2 text-center mb-4">
+                                <div class="mood-card" style="border-color: @mood.Color;">
+                                    <h6 style="color:@mood.Color">@mood.Name</h6>
+                                    <p><strong>@songCount</strong> songs</p>
+                                    <small class="text-secondary">@mood.Description</small>
                                 </div>
                             </div>
                         }
@@ -84,11 +182,11 @@
     <!-- Recent Content -->
     <div class="row">
         <!-- Recent Songs -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5>Recent Songs</h5>
-                    <a href="/Songs" class="btn btn-sm btn-outline-primary">View All</a>
+        <div class="col-md-6 mb-4">
+            <div class="section-card">
+                <div class="card-header d-flex justify-content-between">
+                    🎵 Recent Songs
+                    <a href="/Songs" class="btn btn-sm btn-outline-light">View All</a>
                 </div>
                 <div class="card-body">
                     @if (Model.RecentSongs.Any())
@@ -97,15 +195,15 @@
                             @foreach (var song in Model.RecentSongs.Take(5))
                             {
                                 <div class="list-group-item">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">@song.Title</h6>
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="fw-bold">@song.Title</h6>
                                         <small>@song.CreatedAt.ToString("MMM dd")</small>
                                     </div>
                                     <p class="mb-1">by @song.Artist</p>
                                     <small>
                                         @foreach (var sm in song.SongMoods)
                                         {
-                                            <span class="badge rounded-pill" style="background-color: @sm.Mood.Color;">@sm.Mood.Name</span>
+                                            <span class="badge rounded-pill" style="background-color:@sm.Mood.Color;">@sm.Mood.Name</span>
                                         }
                                     </small>
                                 </div>
@@ -114,18 +212,18 @@
                     }
                     else
                     {
-                        <p class="text-muted">No songs yet. <a href="/Songs/Create">Add your first song!</a></p>
+                        <p class="text-secondary">No songs yet. <a href="/Songs/Create" class="text-success">Add your first song!</a></p>
                     }
                 </div>
             </div>
         </div>
 
         <!-- Recent Playlists -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5>Recent Playlists</h5>
-                    <a href="/Playlists" class="btn btn-sm btn-outline-success">View All</a>
+        <div class="col-md-6 mb-4">
+            <div class="section-card">
+                <div class="card-header d-flex justify-content-between">
+                    📂 Recent Playlists
+                    <a href="/Playlists" class="btn btn-sm btn-outline-light">View All</a>
                 </div>
                 <div class="card-body">
                     @if (Model.RecentPlaylists.Any())
@@ -134,13 +232,13 @@
                             @foreach (var playlist in Model.RecentPlaylists.Take(5))
                             {
                                 <div class="list-group-item">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1">@playlist.Name</h6>
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="fw-bold">@playlist.Name</h6>
                                         <small>@playlist.GeneratedAt.ToString("MMM dd")</small>
                                     </div>
-                                    <p class="mb-1">
-                                        <span class="badge rounded-pill" style="background-color: @playlist.Mood.Color;">@playlist.Mood.Name</span>
-                                        @playlist.PlaylistSongs.Count songs
+                                    <p>
+                                        <span class="badge rounded-pill" style="background-color:@playlist.Mood.Color;">@playlist.Mood.Name</span>
+                                        <span class="ms-2">@playlist.PlaylistSongs.Count songs</span>
                                     </p>
                                 </div>
                             }
@@ -148,7 +246,7 @@
                     }
                     else
                     {
-                        <p class="text-muted">No playlists yet. <a href="/Playlists/Generate">Generate your first playlist!</a></p>
+                        <p class="text-secondary">No playlists yet. <a href="/Playlists/Generate" class="text-success">Generate your first playlist!</a></p>
                     }
                 </div>
             </div>

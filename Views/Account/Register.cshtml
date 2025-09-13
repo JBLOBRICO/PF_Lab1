@@ -1,55 +1,155 @@
-@model MoodPlaylistGenerator.ViewModels.RegisterViewModel
+﻿@model MoodPlaylistGenerator.ViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <h3>Register</h3>
+<div class="register-wrapper d-flex align-items-center justify-content-center">
+    <div class="register-card shadow-lg">
+        <div class="text-center mb-4">
+            <h2 class="register-title">Create Account</h2>
+            <p class="register-subtitle">Join MoodPlaylist and start your journey 🎧</p>
+        </div>
+
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control stylish-input" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="card-body">
-                <form asp-action="Register" method="post">
-                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
-                    
-                    <div class="form-group mb-3">
-                        <label asp-for="Email" class="form-label">Email</label>
-                        <input asp-for="Email" class="form-control" placeholder="Enter your email" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
 
-                    <div class="form-group mb-3">
-                        <label asp-for="Username" class="form-label">Username</label>
-                        <input asp-for="Username" class="form-control" placeholder="Choose a username" />
-                        <span asp-validation-for="Username" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label asp-for="Password" class="form-label">Password</label>
-                        <input asp-for="Password" class="form-control" type="password" placeholder="Enter password" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
-                        <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Confirm password" />
-                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                </form>
-
-                <div class="mt-3 text-center">
-                    <a asp-action="Login">Already have an account? Login</a>
-                </div>
+            <div class="form-group mb-3">
+                <label asp-for="Username" class="form-label">Username</label>
+                <input asp-for="Username" class="form-control stylish-input" placeholder="Choose a username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" class="form-control stylish-input" type="password" placeholder="Enter password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                <input asp-for="ConfirmPassword" class="form-control stylish-input" type="password" placeholder="Confirm password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn register-btn">Register</button>
+            </div>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a asp-action="Login" class="alt-link">Already have an account? <b>Login</b></a>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<style>
+    body {
+        background: linear-gradient(-45deg, #121212, #1db954, #ff9900, #ff4d4d);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    @@keyframes gradientBG {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .register-wrapper {
+        height: 100vh;
+    }
+
+    .register-card {
+        background: rgba(18, 18, 18, 0.95);
+        border-radius: 20px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 420px;
+        color: #fff;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .register-title {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #1db954, #ff9900);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    .register-subtitle {
+        color: #b3b3b3;
+        font-size: 0.9rem;
+    }
+
+    .form-label {
+        color: #b3b3b3;
+    }
+
+    .stylish-input {
+        background: #181818;
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 12px;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+        .stylish-input:focus {
+            border-color: #ff9900;
+            box-shadow: 0 0 8px rgba(255,153,0,0.6);
+            background: #222;
+        }
+
+    .register-btn {
+        background: linear-gradient(90deg, #1db954, #ff9900);
+        border: none;
+        border-radius: 12px;
+        padding: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: 0.3s ease;
+    }
+
+        .register-btn:hover {
+            background: linear-gradient(90deg, #1ed760, #ffb84d);
+            box-shadow: 0 0 15px rgba(255,153,0,0.8);
+        }
+
+    .alt-link {
+        color: #b3b3b3;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+        .alt-link:hover {
+            color: #ff9900;
+        }
+</style>

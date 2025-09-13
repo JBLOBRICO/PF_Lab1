@@ -2,52 +2,128 @@
     ViewData["Title"] = "Mood Playlist Generator";
 }
 
-<div class="text-center">
-    <h1 class="display-4">🎵 Mood Playlist Generator</h1>
-    <p class="lead">Create personalized YouTube playlists based on your mood</p>
-    
+<div class="hero-wrapper d-flex flex-column align-items-center justify-content-center text-center">
+    <h1 class="hero-title">🎵 Mood Playlist Generator</h1>
+    <p class="hero-subtitle">Create personalized YouTube playlists based on your mood</p>
+
     @if (!User.Identity!.IsAuthenticated)
     {
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h3>Get Started</h3>
-                        <p>Organize your favorite YouTube music by mood and generate random playlists!</p>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a href="/Account/Register" class="btn btn-primary btn-lg me-md-2">Register</a>
-                            <a href="/Account/Login" class="btn btn-outline-secondary btn-lg">Login</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">🎶 Add Songs</h5>
-                        <p class="card-text">Save your favorite YouTube songs and tag them with moods</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">😊 Choose Moods</h5>
-                        <p class="card-text">Happy, Sad, Energetic, Relaxed, Romantic, Focus - pick your vibe</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">🔀 Generate Playlists</h5>
-                        <p class="card-text">Let us create random playlists based on your mood selection</p>
-                    </div>
-                </div>
-            </div>
+        <div class="cta-buttons mt-4">
+            <a href="/Account/Register" class="btn btn-register btn-lg me-3">Register</a>
+            <a href="/Account/Login" class="btn btn-login btn-lg">Login</a>
         </div>
     }
 </div>
+
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card h-100 text-center p-4">
+                <h3 class="feature-icon">🎶</h3>
+                <h5 class="feature-title">Add Songs</h5>
+                <p class="feature-text">Save your favorite YouTube songs and tag them with moods</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card h-100 text-center p-4">
+                <h3 class="feature-icon">😊</h3>
+                <h5 class="feature-title">Choose Moods</h5>
+                <p class="feature-text">Happy, Sad, Energetic, Relaxed, Romantic, Focus – pick your vibe</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card h-100 text-center p-4">
+                <h3 class="feature-icon">🔀</h3>
+                <h5 class="feature-title">Generate Playlists</h5>
+                <p class="feature-text">Let us create random playlists based on your mood selection</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #121212, #1db954 40%, #ff9900 80%);
+        font-family: 'Poppins', sans-serif;
+        color: #fff;
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    .hero-wrapper {
+        padding: 5rem 1rem 3rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #1db954, #ff9900);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        color: #b3b3b3;
+        margin-top: 0.5rem;
+    }
+
+    .cta-buttons .btn {
+        border-radius: 12px;
+        padding: 12px 28px;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .btn-register {
+        background: linear-gradient(90deg, #1db954, #ff9900);
+        border: none;
+        color: #fff;
+    }
+
+        .btn-register:hover {
+            background: linear-gradient(90deg, #1ed760, #ffb84d);
+            box-shadow: 0 0 15px rgba(255,153,0,0.8);
+        }
+
+    .btn-login {
+        border: 2px solid #b3b3b3;
+        color: #b3b3b3;
+        background: transparent;
+    }
+
+        .btn-login:hover {
+            border-color: #1db954;
+            color: #1db954;
+            box-shadow: 0 0 12px rgba(29,185,84,0.6);
+        }
+
+    .feature-card {
+        background: rgba(18, 18, 18, 0.95);
+        border-radius: 16px;
+        transition: 0.3s ease;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 18px rgba(255,153,0,0.6);
+        }
+
+    .feature-icon {
+        font-size: 2.5rem;
+    }
+
+    .feature-title {
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+    }
+
+    .feature-text {
+        color: #b3b3b3;
+        font-size: 0.95rem;
+    }
+</style>
